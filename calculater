@@ -1,0 +1,68 @@
+// Payroll program for 10 employees
+// Modules: housekeeping, getEmployeeData, calculatePay, displayPay, finish
+start
+   Declarations
+      num EMP_COUNT = 10
+      num DEDUCTION = 45
+      num index = 1
+      num totalPayroll = 0
+      string names[10]
+      num hours[10]
+      num rate[10]
+      num gross[10]
+      num net[10]
+
+   housekeeping()
+   while index <= EMP_COUNT
+      getEmployeeData()
+      calculatePay()
+      displayPay()
+      index = index + 1
+   endwhile
+   finish()
+stop
+
+// SECTION 1: Setup (Member 1)
+housekeeping()
+   output "Payroll Program - 10 Employees"
+   totalPayroll = 0
+   index = 1
+return
+
+// SECTION 2: Input (Member 2)
+getEmployeeData()
+   output "Enter name for employee ", index
+   input names[index]
+   output "Enter hours worked for ", names[index]
+   input hours[index]
+   // Module 8 update: replace the next two lines with
+   // rate[index] = lookUpPayRate(names[index]) from the database
+   output "Enter hourly rate for ", names[index]
+   input rate[index]
+return
+
+// SECTION 3: Calculations (Member 3)
+calculatePay()
+   gross[index] = hours[index] * rate[index]
+   net[index] = gross[index] - DEDUCTION
+   if net[index] < 0 then
+      net[index] = 0
+   endif
+   totalPayroll = totalPayroll + net[index]
+return
+
+// SECTION 4: Output and wrap-up (Member 4)
+displayPay()
+   output "Employee: ", names[index]
+   output "Gross pay: ", gross[index]
+   if net[index] > 0 then
+      output "Net pay: ", net[index]
+   else
+      output "Deductions not covered. Net is 0."
+   endif
+return
+
+finish()
+   output "Total net payroll: ", totalPayroll
+   output "End of job"
+return
